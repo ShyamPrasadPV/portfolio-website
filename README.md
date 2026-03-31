@@ -1,70 +1,88 @@
 # Front-End Developer Portfolio
 
-A modern, dark-themed, single-page portfolio website for a Front-End Developer.
+Single-page portfolio for **Shyam Prasad**, built with Next.js. Dark theme, scroll-driven motion, and copy sourced from one TypeScript module so the site stays easy to update.
 
-## 🗂 Project Structure
+## Tech stack
+
+| Area | Choice |
+|------|--------|
+| Framework | [Next.js](https://nextjs.org/) 16 (App Router) |
+| UI | [React](https://react.dev/) 19, [TypeScript](https://www.typescriptlang.org/) |
+| Styling | [Tailwind CSS](https://tailwindcss.com/) v4, shared tokens in `app/globals.css` |
+| Motion | [Framer Motion](https://www.framer.com/motion/) |
+| Components | Portfolio sections under `components/portfolio/`; primitives (`badge`, `button`, `sheet`, etc.) under `components/ui/` with [Base UI](https://base-ui.com/) / shadcn-style setup |
+| Icons | [Lucide React](https://lucide.dev/) |
+| Fonts | [Inter](https://fonts.google.com/specimen/Inter) and [Fira Code](https://fonts.google.com/specimen/Fira+Code) via `next/font` |
+
+## Project structure
 
 ```
-index.html          — Main single-page portfolio
-css/
-  style.css         — All styles (variables, layout, animations, responsive)
-js/
-  main.js           — All interactivity (scroll effects, animations, nav)
+app/
+  layout.tsx      — Root layout, metadata, font variables, dark class
+  page.tsx        — Composes all sections (home only)
+  globals.css     — Tailwind imports, theme tokens, portfolio-specific CSS variables
+components/
+  portfolio/      — Navbar, hero, experience, projects, skills, about, contact, footer, cursor glow, back-to-top, motion helpers
+  ui/             — Reusable UI primitives
+lib/
+  content.ts      — Site name, links, nav, hero stats, experience, projects, skills, about cards
+  rich-text.tsx   — Renders inline **bold** strings from content
+  utils.ts        — Class name helpers (e.g. `cn`)
 ```
 
-## ✅ Completed Features
+## Features
 
-- **Hero Section** — Headline, sub-headline, CTA buttons, animated stats counter, availability badge, scroll indicator
-- **Experience Section** — Pixbit Solutions role card with timeline indicator and achievements
-- **Featured Projects** — 4 detailed project cards with challenge, contributions, tech stack tags, and 3D hover tilt
-- **Skills / Tech Stack** — 6 grouped skill categories with highlighted core technologies
-- **About Me** — Bio text, animated stacked info cards, hobbies (Movies + Football)
-- **Contact / CTA Section** — Open invitation with social link placeholders (email, LinkedIn, GitHub)
-- **Footer** — Logo, nav links, copyright
-- **Responsive Design** — Mobile-first, hamburger menu, fluid typography
-- **Scroll Animations** — IntersectionObserver-based reveal on scroll
-- **Animated Stat Counters** — Numbers count up when scrolled into view
-- **Cursor Glow** — Soft radial glow that follows the cursor (desktop only)
-- **Navbar** — Transparent → frosted glass on scroll, active link highlighting
-- **Back-to-Top Button** — Appears after scrolling 500px
+- **Hero** — Headline, CTAs, animated stat counters, availability-style badge, scroll cue
+- **Experience** — Role at Pixbit Solutions with timeline and bullet achievements
+- **Projects** — Four featured case studies with challenge, contributions (rich text), and stack tags; card interactions
+- **Skills** — Grouped categories with highlighted core tags
+- **About** — Bio and stacked stat cards
+- **Contact** — CTA with email and social links (from `lib/content.ts`)
+- **Footer** — Nav and copyright
+- **Navbar** — Section links, mobile sheet menu, scroll-aware styling
+- **Back to top** — Appears after scrolling
+- **Cursor glow** — Desktop-only radial follow effect
+- **Motion** — Section reveals and other Framer Motion–based polish
 
-## 🔗 Entry Points
+## Getting started
 
-| Page     | Path         |
-|----------|--------------|
-| Portfolio | `index.html` |
+Requirements: Node.js 20+ recommended (matches `@types/node` in the repo).
 
-## ⚠️ Pending / Personalisation Required
+```bash
+npm install
+npm run dev
+```
 
-- Replace `href="mailto:"` with actual email address
-- Replace LinkedIn URL placeholder with real profile link
-- Replace GitHub URL placeholder with real profile link
-- Optionally add a profile photo to the About or Hero section
-- Add real project screenshots or mockups if desired
+Open [http://localhost:3000](http://localhost:3000).
 
-## 🎨 Design System
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run start` | Run production server (after `build`) |
+| `npm run lint` | ESLint |
 
-| Token         | Value              |
-|---------------|--------------------|
-| Background    | `#080c14`          |
-| Surface       | `#0f1623`          |
-| Accent Cyan   | `#00d4ff`          |
-| Accent Purple | `#7c3aed`          |
-| Font Sans     | Inter (Google Fonts) |
-| Font Code     | Fira Code (Google Fonts) |
+## Customising the site
 
-## 🛠 Tech Used
+1. **Copy and links** — Edit `lib/content.ts` (`site`, `navLinks`, `heroStats`, `experience`, `projects`, `skillGroups`, `aboutCards`). Contribution lines support `**bold**` via `lib/rich-text.tsx`.
+2. **SEO / tab title** — `app/layout.tsx` uses `site.title` and `site.description` from `content.ts` for metadata.
+3. **Colours and theme** — Adjust CSS variables in `app/globals.css` (`:root`, portfolio tokens such as `--portfolio-cyan` and `--portfolio-purple`).
+4. **Layout and sections** — Change composition in `app/page.tsx` or individual files under `components/portfolio/`.
 
-- Plain HTML5 / CSS3 / Vanilla JavaScript (no build step)
-- Google Fonts (Inter, Fira Code)
-- Font Awesome 6 (icons, via CDN)
-- IntersectionObserver API (scroll reveal + counter animations)
-- CSS Custom Properties & CSS Grid / Flexbox
+## Design tokens (reference)
 
-## 🚀 Next Steps
+Portfolio accents and surfaces are aligned with the original palette, now expressed as CSS variables in `globals.css`:
 
-- Add a contact form powered by a free service (Formspree, EmailJS)
-- Add a downloadable CV/resume button
-- Integrate a real project screenshot carousel
-- Add a dark/light mode toggle
-- Publish via the **Publish tab** to get a live URL
+| Token | Typical use |
+|-------|-------------|
+| Background `#080c14` | Page background |
+| Card / surface `#0f1623` | Panels and cards |
+| Accent cyan `#00d4ff` | Primary accent, links, focus |
+| Accent purple `#7c3aed` | Secondary accent |
+
+## Possible next steps
+
+- Contact form backed by a service (e.g. Formspree, Resend, or similar)
+- Downloadable CV / resume
+- Project imagery or carousel
+- Light mode variant (theme toggle)
