@@ -18,14 +18,14 @@ export const navLinks = [
 
 export const heroStats = [
   { value: 4, suffix: "+", label: "Years Experience" },
-  { value: 4, suffix: "", label: "Major Projects" },
-  { value: 4800, suffix: "+", label: "Entities Managed" },
+  { value: 8, suffix: "+", label: "Major Projects" },
+  { value: 100, suffix: "+", label: "UI Components Built" },
 ] as const;
 
 export const experience = {
   role: "Software Developer",
   company: "Pixbit Solutions Pvt. Ltd.",
-  period: "July 2023 – Present",
+  period: "July 2023 - Present",
   current: true,
   achievements: [
     "Engineered and maintained robust front-end architectures for diverse client projects, ranging from large-scale real estate platforms to dynamic social networking applications.",
@@ -172,6 +172,6 @@ export const skillGroups = [
 
 export const aboutCards = [
   { icon: "code" as const, num: "4+", text: "Years of crafting UIs" },
-  { icon: "rocket" as const, num: "4,800+", text: "Data entities managed" },
-  { icon: "factory" as const, num: "3+", text: "Industries served" },
+  { icon: "rocket" as const, num: "30+", text: "Features Shipped" },
+  { icon: "factory" as const, num: "8+", text: "Industries served" },
 ] as const;
