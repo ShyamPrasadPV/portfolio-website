@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Fragment } from "react";
 
+import Lanyard from "../ui/lanyard";
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -82,8 +84,12 @@ export function HeroSection() {
         />
       </div>
 
+      <div className="absolute -top-24 w-3/4 right-0 z-30 max-lg:hidden">
+        <Lanyard />
+      </div>
+
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-275"
+        className="relative z-20 mx-auto w-full max-w-275"
         variants={container}
         initial="hidden"
         animate="show"

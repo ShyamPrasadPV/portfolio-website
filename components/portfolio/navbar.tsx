@@ -11,8 +11,11 @@ import { navLinks, site } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
+import logo from "@/assets/images/shyam-dev-logo.png";
 
 function scrollToHash(href: string) {
   const id = href.replace("#", "");
@@ -63,9 +66,13 @@ export function Navbar() {
           }}
           className="font-mono text-lg font-bold text-foreground"
         >
-          <span className="text-gradient">&lt;</span>
-          Dev
-          <span className="text-gradient">/&gt;</span>
+          <Image
+            src={logo}
+            alt={`${site.name} logo`}
+            width={128}
+            height={32}
+            className="inline-block"
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
