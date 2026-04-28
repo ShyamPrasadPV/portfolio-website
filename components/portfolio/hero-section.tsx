@@ -84,7 +84,7 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="absolute -top-24 w-3/4 right-0 z-30 max-lg:hidden">
+      <div className="absolute -top-32 w-full max-lg:hidden lg:right-0 z-30 ">
         <Lanyard />
       </div>
 

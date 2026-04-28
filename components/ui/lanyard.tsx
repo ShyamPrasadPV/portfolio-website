@@ -31,6 +31,7 @@ interface LanyardProps {
   gravity?: [number, number, number];
   fov?: number;
   transparent?: boolean;
+  sceneOffsetX?: number;
 }
 
 export default function Lanyard({
@@ -38,6 +39,7 @@ export default function Lanyard({
   gravity = [0, -40, 0],
   fov = 12,
   transparent = true,
+  sceneOffsetX = 1.8,
 }: LanyardProps) {
   const [isMobile, setIsMobile] = useState<boolean>(
     () => typeof window !== "undefined" && window.innerWidth < 768,
@@ -61,7 +63,7 @@ export default function Lanyard({
       >
         <ambientLight intensity={Math.PI} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
-          <Band isMobile={isMobile} />
+          <Band isMobile={isMobile} sceneOffsetX={sceneOffsetX} />
         </Physics>
         <Environment blur={0.75}>
           <Lightformer
@@ -102,9 +104,15 @@ interface BandProps {
   maxSpeed?: number;
   minSpeed?: number;
   isMobile?: boolean;
+  sceneOffsetX?: number;
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
+function Band({
+  maxSpeed = 50,
+  minSpeed = 0,
+  isMobile = false,
+  sceneOffsetX = -0.75,
+}: BandProps) {
   // Using "any" for refs since the exact types depend on Rapier's internals
   const band = useRef<any>(null);
   const fixed = useRef<any>(null);
@@ -200,7 +208,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
 
   return (
     <>
-      <group position={[0, 4, 0]}>
+      <group position={[sceneOffsetX, 4, 0]}>
         <RigidBody
           ref={fixed}
           {...segmentProps}
