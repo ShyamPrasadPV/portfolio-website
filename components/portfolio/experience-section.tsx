@@ -1,82 +1,80 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { MotionReveal } from "@/components/portfolio/motion-reveal";
+import { SectionHeading } from "@/components/portfolio/section-heading";
 import { experience } from "@/lib/content";
 import { motion } from "framer-motion";
-import { Building2, Calendar, CheckCircle2 } from "lucide-react";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="scroll-mt-24 bg-card py-24 md:py-28">
-      <div className="mx-auto max-w-275 px-6 md:px-8">
-        <MotionReveal className="mb-14 text-center">
-          <span className="mb-4 inline-block rounded-full border border-[rgba(0,212,255,0.3)] bg-[rgba(0,212,255,0.05)] px-4 py-1.5 font-mono text-(--portfolio-cyan) text-xs font-medium tracking-widest uppercase">
-            Career
-          </span>
-
-          <h2 className="text-foreground text-3xl font-extrabold tracking-tight md:text-4xl">
-            Work Experience
-          </h2>
+    <section id="work" className="scroll-mt-24 bg-background/35 px-5 py-24 md:px-8 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <MotionReveal className="mb-14 md:mb-16">
+          <SectionHeading
+            eyebrow="Experience"
+            title="Career timeline shaped by real product delivery."
+            description="Roles and responsibilities focused on shipping durable systems for client products."
+          />
         </MotionReveal>
 
-        <MotionReveal>
-          <motion.article
-            className="relative overflow-hidden rounded-(--radius-portfolio-lg) border border-border bg-(--surface-elevated) p-8 shadow-[0_0_40px_rgba(0,212,255,0.08)] md:p-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -2, borderColor: "rgba(0,212,255,0.2)" }}
-          >
-            <div className="absolute top-0 right-0 left-0 h-0.5 bg-gradient-accent" />
+        <div className="relative">
+          <div
+            className="absolute top-3 bottom-3 left-[0.7rem] hidden w-px bg-border md:block"
+            aria-hidden
+          />
 
-            <div
-              className="absolute top-8 -left-3 hidden h-5 w-5 rounded-full bg-gradient-accent shadow-[0_0_12px_rgba(0,212,255,0.5)] md:block"
-              aria-hidden
-            />
-
-            <header className="mb-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-              <div>
-                <h3 className="text-foreground mb-2 text-xl font-bold md:text-2xl">
-                  {experience.role}
-                </h3>
-
-                <div className="flex items-center gap-2 font-semibold text-(--portfolio-cyan)">
-                  <Building2 className="size-4 shrink-0" />
-
-                  {experience.company}
-                </div>
-              </div>
-
-              <div className="flex flex-col items-start gap-2 md:items-end">
-                <span className="text-muted-foreground flex items-center gap-2 font-mono text-sm">
-                  <Calendar className="size-4" />
-
-                  {experience.period}
-                </span>
-
-                {experience.current ? (
-                  <Badge className="rounded-full border-0 bg-gradient-accent px-3 font-bold text-white uppercase tracking-wide">
-                    Current
-                  </Badge>
-                ) : null}
-              </div>
-            </header>
-
-            <ul className="flex flex-col gap-4">
-              {experience.achievements.map((line) => (
-                <li
-                  key={line.slice(0, 48)}
-                  className="flex gap-3 text-[0.97rem] leading-relaxed"
+          <div className="space-y-8">
+            {experience.map((job, index) => (
+              <MotionReveal key={job.company} delay={index * 0.05}>
+                <motion.article
+                  className="relative grid gap-6 rounded-[1.35rem] border border-border bg-card p-6 md:grid-cols-[12rem_1fr] md:gap-10 md:p-8"
+                  whileHover={{ y: -2 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 28 }}
                 >
-                  <CheckCircle2 className="mt-1 size-4 shrink-0 text-(--portfolio-cyan)" />
-                  {line}
-                </li>
-              ))}
-            </ul>
-          </motion.article>
-        </MotionReveal>
+                  <div className="md:pl-8">
+                    <span
+                      className="absolute top-8 left-[0.45rem] hidden size-2.5 rounded-full bg-primary ring-4 ring-background md:block"
+                      aria-hidden
+                    />
+                    <p className="font-mono text-[0.68rem] tracking-[0.16em] text-muted-foreground uppercase">
+                      {job.period}
+                    </p>
+                    {job.current ? (
+                      <span className="mt-3 inline-flex rounded-full bg-primary/10 px-2.5 py-1 font-mono text-[0.65rem] tracking-wider text-primary uppercase">
+                        Current
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <div>
+                    <header className="mb-4">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                        {job.role}
+                      </h3>
+                      <p className="mt-1 text-sm font-medium text-primary">
+                        {job.company}
+                      </p>
+                      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                        {job.summary}
+                      </p>
+                    </header>
+
+                    <ul className="space-y-3">
+                      {job.achievements.map((line) => (
+                        <li
+                          key={line.slice(0, 40)}
+                          className="relative pl-5 text-sm leading-relaxed text-ink-soft before:absolute before:left-0 before:top-2 before:size-1.5 before:rounded-full before:bg-primary md:text-[0.95rem]"
+                        >
+                          {line}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.article>
+              </MotionReveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

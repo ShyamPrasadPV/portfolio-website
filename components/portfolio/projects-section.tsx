@@ -2,27 +2,43 @@
 
 import { MotionReveal } from "@/components/portfolio/motion-reveal";
 import { ProjectCard } from "@/components/portfolio/project-card";
+import { SectionHeading } from "@/components/portfolio/section-heading";
 import { projects } from "@/lib/content";
 
 export function ProjectsSection() {
+  const featured = projects.filter((project) => project.featured);
+  const supporting = projects.filter((project) => !project.featured);
+
   return (
-    <section id="projects" className="scroll-mt-24 bg-background py-24 md:py-28">
-      <div className="mx-auto max-w-[1100px] px-6 md:px-8">
-        <MotionReveal className="mb-14 text-center">
-          <span className="mb-4 inline-block rounded-full border border-[rgba(0,212,255,0.3)] bg-[rgba(0,212,255,0.05)] px-4 py-1.5 font-mono text-[var(--portfolio-cyan)] text-xs font-medium tracking-widest uppercase">
-            Portfolio
-          </span>
-          <h2 className="text-foreground mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
-            Featured Projects
-          </h2>
-          <p className="text-muted-foreground mx-auto max-w-xl text-lg">
-            A selection of impactful projects I&apos;ve led and contributed to.
-          </p>
+    <section id="projects" className="scroll-mt-24 bg-section/70 px-5 py-24 md:px-8 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <MotionReveal className="mb-14 md:mb-16">
+          <SectionHeading
+            eyebrow="Selected work"
+            title="Products where interface, data, and systems meet."
+            description="A focused selection of client platforms spanning discovery, realtime collaboration, commerce, and content-driven marketing."
+          />
         </MotionReveal>
 
-        <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
-          {projects.map((p, i) => (
-            <ProjectCard key={p.title} project={p} index={i} />
+        <div className="space-y-8">
+          {featured.map((project, index) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              layout="featured"
+            />
+          ))}
+        </div>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          {supporting.map((project, index) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index + featured.length}
+              layout="compact"
+            />
           ))}
         </div>
       </div>

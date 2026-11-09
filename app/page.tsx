@@ -7,31 +7,26 @@ import { Footer } from "@/components/portfolio/footer";
 import { HeroSection } from "@/components/portfolio/hero-section";
 import { Navbar } from "@/components/portfolio/navbar";
 import { ProjectsSection } from "@/components/portfolio/projects-section";
+import { ServicesSection } from "@/components/portfolio/services-section";
 import { SkillsSection } from "@/components/portfolio/skills-section";
 
 export default function Home() {
   return (
     <>
       <CursorGlow />
-
       <Navbar />
 
       <main className="flex flex-1 flex-col">
         <HeroSection />
-
-        <ExperienceSection />
-
-        <ProjectsSection />
-
-        <SkillsSection />
-
         <AboutSection />
-
+        <ExperienceSection />
+        <ProjectsSection />
+        <SkillsSection />
+        <ServicesSection />
         <ContactSection />
       </main>
 
       <Footer />
-
       <BackToTop />
     </>
   );

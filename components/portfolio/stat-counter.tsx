@@ -22,7 +22,7 @@ export function StatCounter({ value, suffix = "", label, className }: Props) {
   useEffect(() => {
     if (!inView) return;
     const controls = animate(0, value, {
-      duration: 1.8,
+      duration: 1.6,
       ease: easeOutCubic,
       onUpdate: (v) => setDisplay(Math.round(v)),
     });
@@ -31,13 +31,11 @@ export function StatCounter({ value, suffix = "", label, className }: Props) {
 
   return (
     <div ref={ref} className={className}>
-      <span className="block text-3xl font-extrabold leading-tight text-gradient sm:text-[1.8rem]">
+      <span className="font-display block text-3xl tracking-tight text-foreground sm:text-[2rem]">
         {display.toLocaleString()}
-
         {suffix}
       </span>
-
-      <span className="text-muted-foreground text-xs font-medium tracking-wide">
+      <span className="mt-1 block text-xs font-medium tracking-wide text-muted-foreground">
         {label}
       </span>
     </div>

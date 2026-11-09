@@ -1,177 +1,211 @@
 export const site = {
   name: "Shyam Prasad",
-  title: "Shyam Prasad — Software Developer",
+  shortName: "Shyam",
+  role: "Full Stack Software Engineer",
+  title: "Shyam Prasad — Full Stack Software Engineer",
   description:
-    "Front-End Developer crafting scalable, interactive web experiences with React, Next.js, and modern UI architectures.",
+    "Full Stack Software Engineer building modern web applications, scalable backends, and real-world digital products with React, Next.js, and headless CMS architectures.",
   email: "shyamprasadpullur@gmail.com",
   linkedin: "https://www.linkedin.com/in/shyamprasadpv",
   github: "https://github.com/ShyamPrasadPV",
+  location: "India",
+  availability: "Open to full-time roles & select freelance",
 } as const;
 
 export const navLinks = [
-  { href: "#experience", label: "Experience" },
+  { href: "#about", label: "About" },
+  { href: "#work", label: "Work" },
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Let's Talk", cta: true },
+  { href: "#services", label: "Services" },
+  { href: "#contact", label: "Contact", cta: true },
 ] as const;
+
+export const hero = {
+  eyebrow: "Full Stack Software Engineer",
+  headline: "Building modern products from interface to infrastructure.",
+  description:
+    "I design and ship scalable web applications—crafting polished frontends, resilient APIs, and CMS-driven systems that turn complex product requirements into dependable digital experiences.",
+  primaryCta: { href: "#projects", label: "View selected work" },
+  secondaryCta: { href: "#contact", label: "Start a conversation" },
+} as const;
 
 export const heroStats = [
-  { value: 4, suffix: "+", label: "Years Experience" },
-  { value: 8, suffix: "+", label: "Major Projects" },
-  { value: 100, suffix: "+", label: "UI Components Built" },
+  { value: 4, suffix: "+", label: "Years shipping products" },
+  { value: 8, suffix: "+", label: "Major product builds" },
+  { value: 30, suffix: "+", label: "Features delivered" },
 ] as const;
 
-export const experience = {
-  role: "Software Developer",
-  company: "Pixbit Solutions Pvt. Ltd.",
-  period: "July 2023 - Present",
-  current: true,
-  achievements: [
-    "Engineered and maintained robust front-end architectures for diverse client projects, ranging from large-scale real estate platforms to dynamic social networking applications.",
-    "Specialized in integrating headless CMS solutions (Payload, Strapi) with modern React/Next.js front-ends to deliver highly performant, SEO-optimized web experiences.",
-    "Spearheaded the development of complex UI components, real-time messaging modules, and advanced filtering systems using Tailwind CSS, Material UI, and Framer Motion.",
-    "Demonstrated expertise in state management (Redux, React Query) and data migration, successfully handling large-scale datasets for enterprise clients.",
+export const about = {
+  eyebrow: "About",
+  title: "Engineer focused on products that hold up in production.",
+  paragraphs: [
+    "Over four years I’ve grown from shipping polished interfaces to owning full product surfaces—frontend architecture, CMS data models, real-time features, and the integrations that connect them.",
+    "At Pixbit Solutions I’ve worked across real estate, social networking, e-commerce, and marketing platforms. That range taught me how to choose the right stack, move quickly without sacrificing quality, and collaborate closely with design and product teams.",
+    "I care about clean systems, thoughtful UX, and code that teammates can extend with confidence.",
+  ],
+  highlights: [
+    { label: "Focus", value: "Product engineering end-to-end" },
+    { label: "Strength", value: "React / Next.js + headless CMS" },
+    { label: "Approach", value: "Clarity, performance, maintainability" },
+  ],
+  interests: [
+    { icon: "film" as const, label: "Cinema & storytelling" },
+    { icon: "sport" as const, label: "Football" },
   ],
 } as const;
+
+export const experience = [
+  {
+    role: "Software Developer",
+    company: "Pixbit Solutions Pvt. Ltd.",
+    period: "Jul 2023 — Present",
+    current: true,
+    summary:
+      "Owning frontend architectures and CMS-backed product features for client platforms across multiple industries.",
+    achievements: [
+      "Engineered front-end architectures for large-scale real estate platforms and dynamic social networking applications.",
+      "Integrated headless CMS solutions (Payload, Strapi) with React/Next.js to deliver performant, SEO-ready experiences.",
+      "Built complex UI systems, real-time messaging modules, and advanced filtering with Tailwind, Material UI, and Framer Motion.",
+      "Owned state management (Redux, React Query) and large-scale data migration work for enterprise clients.",
+    ],
+  },
+] as const;
 
 export const projects = [
   {
     number: "01",
     role: "Lead Front-End Developer",
     title: "UAE Real Estate Investment Platform",
+    summary:
+      "A high-performance property discovery product managing thousands of real estate assets with search, filters, and interactive maps.",
     challenge:
-      "Building a high-performance property discovery platform capable of managing and filtering thousands of real estate assets.",
+      "Scale discovery UX across 4,800+ entities without sacrificing speed or editorial clarity.",
     contributions: [
-      "Developed a comprehensive Payload CMS architecture to manage over **4,800 complex entities** (properties, projects, communities, developers).",
-      "Engineered a global search UI and advanced filtering system for rapid property discovery.",
-      "Built highly engaging, interactive map views with smooth transitions to visualize property listings.",
-      "Executed a seamless migration of thousands of legacy data points into the new system.",
+      "Designed a Payload CMS architecture for **4,800+** properties, projects, communities, and developers.",
+      "Built global search and advanced filtering for rapid property discovery.",
+      "Shipped interactive map views with smooth transitions for listing visualization.",
+      "Migrated thousands of legacy data points into the new system.",
     ],
-    stack: [
-      "React/Next.js",
-      "Payload CMS",
-      "Tailwind CSS",
-      "Framer Motion",
-      "Shadcn UI",
-    ],
+    stack: ["Next.js", "Payload CMS", "Tailwind CSS", "Framer Motion", "Shadcn UI"],
+    accent: "ocean" as const,
+    featured: true,
+    liveUrl: undefined as string | undefined,
+    sourceUrl: undefined as string | undefined,
   },
   {
     number: "02",
     role: "Front-End Developer",
-    title: "Professional Collaboration & Networking Platform",
+    title: "Professional Collaboration Platform",
+    summary:
+      "A real-time networking product connecting students, professionals, and companies with messaging, notifications, and publishing tools.",
     challenge:
-      "Creating a real-time, comprehensive social platform connecting students, professionals, and companies.",
+      "Deliver responsive social infrastructure that feels instant and reliable under concurrent use.",
     contributions: [
-      "Architected and implemented a **real-time messaging module** for user-to-user communication via WebSockets.",
-      "Developed a dynamic, system-wide notification engine to keep users informed of network activity.",
-      "Assisted in building a custom rich-text editor, enabling users to format and publish academic documents directly on the platform.",
+      "Implemented a **real-time messaging module** over WebSockets.",
+      "Built a system-wide notification engine for network activity.",
+      "Helped develop a custom rich-text editor for academic publishing.",
     ],
-    stack: [
-      "React",
-      "Material UI",
-      "Tailwind CSS",
-      "Redux",
-      "React Query",
-      "WebSockets",
-    ],
+    stack: ["React", "Material UI", "Redux", "React Query", "WebSockets"],
+    accent: "violet" as const,
+    featured: true,
+    liveUrl: undefined as string | undefined,
+    sourceUrl: undefined as string | undefined,
   },
   {
     number: "03",
-    role: "UI/E-Commerce Developer",
+    role: "UI / E-Commerce Developer",
     title: "Enterprise E-Commerce Solutions",
+    summary:
+      "Extending a commerce SDK to support configurable product bundles, cart logic, and secure checkout flows.",
     challenge:
-      "Extending a robust e-commerce SDK to handle complex, configurable product bundles and payment flows.",
+      "Handle sophisticated bundle configuration and payment confirmation without breaking existing SDK contracts.",
     contributions: [
-      "Developed custom, reusable UI components integrated directly with the **Microsoft Dynamics 365 SDK**.",
-      "Customized cart management modules to handle sophisticated logic for configurable product bundles.",
-      "Assisted in the critical integration of payment gateways and secure order confirmation flows.",
+      "Built reusable UI components on the **Microsoft Dynamics 365 SDK**.",
+      "Customized cart modules for configurable product bundles.",
+      "Supported payment gateway and order confirmation integrations.",
     ],
     stack: ["React", "MS Dynamics 365", "E-Commerce SDK"],
+    accent: "amber" as const,
+    featured: false,
+    liveUrl: undefined as string | undefined,
+    sourceUrl: undefined as string | undefined,
   },
   {
     number: "04",
     role: "Front-End Developer",
-    title: "High-Performance CMS Marketing Sites",
+    title: "CMS-Driven Marketing Sites",
+    summary:
+      "Visually precise, SEO-optimized corporate sites with dynamic content managed by non-technical teams.",
     challenge:
-      "Delivering visually striking, SEO-optimized corporate websites with dynamic content managed by non-technical teams.",
+      "Keep design fidelity high while empowering editors through headless CMS workflows.",
     contributions: [
-      "Built the official **Pixbit Solutions website**, prioritizing SEO and Lighthouse performance scores.",
-      "Developed elegant, interactive UI elements with smooth page transitions for a major UAE logistics provider.",
-      "Seamlessly integrated dynamic Strapi CMS data across multiple client sites, empowering content editors while maintaining strict design fidelity.",
+      "Built the official **Pixbit Solutions** website with strong SEO and Lighthouse performance.",
+      "Delivered interactive UI and page transitions for a major UAE logistics provider.",
+      "Integrated Strapi CMS data across client sites with strict design fidelity.",
     ],
-    stack: ["React", "Next.js", "Strapi CMS", "Tailwind CSS"],
+    stack: ["Next.js", "Strapi CMS", "Tailwind CSS", "React"],
+    accent: "forest" as const,
+    featured: false,
+    liveUrl: undefined as string | undefined,
+    sourceUrl: undefined as string | undefined,
   },
 ] as const;
 
 export const skillGroups = [
   {
-    title: "Core Frameworks",
-    icon: "layers" as const,
-    tags: [
-      { name: "React", highlight: true },
-      { name: "Next.js", highlight: true },
-      { name: "JavaScript (ES6+)", highlight: false },
-      { name: "TypeScript", highlight: false },
-    ],
+    title: "Frontend",
+    description: "Interfaces that feel fast and intentional.",
+    tags: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion"],
   },
   {
-    title: "UI & Styling",
-    icon: "brush" as const,
-    tags: [
-      { name: "Tailwind CSS", highlight: true },
-      { name: "Material UI", highlight: false },
-      { name: "Shadcn UI", highlight: false },
-      { name: "Framer Motion", highlight: false },
-      { name: "CSS3 / SCSS", highlight: false },
-    ],
+    title: "Backend & Data",
+    description: "APIs, realtime systems, and durable state.",
+    tags: ["REST APIs", "WebSockets", "Redux", "React Query", "Payload CMS", "Strapi"],
   },
   {
-    title: "State & Data",
-    icon: "database" as const,
-    tags: [
-      { name: "Redux", highlight: true },
-      { name: "React Query", highlight: true },
-      { name: "WebSockets", highlight: false },
-      { name: "REST APIs", highlight: false },
-    ],
+    title: "Product Systems",
+    description: "Platforms, commerce, and content operations.",
+    tags: ["Headless CMS", "MS Dynamics 365", "E-Commerce", "SEO", "Data Migration"],
   },
   {
-    title: "CMS & Platforms",
-    icon: "server" as const,
-    tags: [
-      { name: "Payload CMS", highlight: true },
-      { name: "Strapi CMS", highlight: true },
-      { name: "MS Dynamics 365", highlight: false },
-      { name: "Headless CMS", highlight: false },
-    ],
-  },
-  {
-    title: "Tools & Workflow",
-    icon: "wrench" as const,
-    tags: [
-      { name: "Git / GitHub", highlight: false },
-      { name: "SEO Optimization", highlight: false },
-      { name: "Lighthouse", highlight: false },
-      { name: "Figma", highlight: false },
-      { name: "Data Migration", highlight: false },
-    ],
-  },
-  {
-    title: "Specializations",
-    icon: "star" as const,
-    tags: [
-      { name: "Real Estate Platforms", highlight: false },
-      { name: "Social Networks", highlight: false },
-      { name: "E-Commerce", highlight: false },
-      { name: "Marketing Sites", highlight: false },
-      { name: "Performance Tuning", highlight: false },
-    ],
+    title: "Craft & Delivery",
+    description: "How work gets designed, shipped, and refined.",
+    tags: ["Figma", "Git / GitHub", "Shadcn UI", "Material UI", "Lighthouse", "Performance"],
   },
 ] as const;
 
-export const aboutCards = [
-  { icon: "code" as const, num: "4+", text: "Years of crafting UIs" },
-  { icon: "rocket" as const, num: "30+", text: "Features Shipped" },
-  { icon: "factory" as const, num: "8+", text: "Industries served" },
+export const services = [
+  {
+    number: "01",
+    title: "Full Stack Product Development",
+    description:
+      "End-to-end delivery of web products—from information architecture and UI systems to APIs, CMS models, and production readiness.",
+  },
+  {
+    number: "02",
+    title: "Frontend Architecture",
+    description:
+      "Scalable React/Next.js foundations with reusable component libraries, strong typing, and performance-minded rendering strategies.",
+  },
+  {
+    number: "03",
+    title: "Headless CMS & Content Platforms",
+    description:
+      "Payload and Strapi implementations that give editors freedom while keeping design systems and SEO intact.",
+  },
+  {
+    number: "04",
+    title: "Realtime & Integration Engineering",
+    description:
+      "Messaging, notifications, third-party SDKs, and data migrations that connect product surfaces to reliable backends.",
+  },
 ] as const;
+
+export const contact = {
+  eyebrow: "Contact",
+  title: "Let’s build the next product together.",
+  description:
+    "Open to full-time roles and select freelance collaborations. If you need a full stack engineer who can own UI quality and system depth, I’d love to hear from you.",
+  formNote: "Prefer email? Reach me directly and I’ll respond within 1–2 business days.",
+} as const;

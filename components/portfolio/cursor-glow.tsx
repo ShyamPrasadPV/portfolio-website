@@ -15,7 +15,11 @@ export function CursorGlow() {
     const coarse =
       typeof window !== "undefined" &&
       window.matchMedia("(pointer: coarse)").matches;
-    if (coarse) {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (coarse || reduceMotion) {
       el.style.display = "none";
       return;
     }
@@ -34,17 +38,16 @@ export function CursorGlow() {
       const { x, y } = pos.current;
       const dx = tx - x;
       const dy = ty - y;
-      pos.current.x += dx * 0.12;
-      pos.current.y += dy * 0.12;
-      el.style.left = `${pos.current.x}px`;
-      el.style.top = `${pos.current.y}px`;
+      pos.current.x += dx * 0.1;
+      pos.current.y += dy * 0.1;
+      el.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
 
       if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
         raf.current = requestAnimationFrame(tick);
       }
     };
 
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
     return () => {
       window.removeEventListener("mousemove", onMove);
       if (raf.current != null) cancelAnimationFrame(raf.current);
@@ -54,11 +57,10 @@ export function CursorGlow() {
   return (
     <div
       ref={glowRef}
-      className="pointer-events-none fixed z-0 h-100 w-100 -translate-x-1/2 -translate-y-1/2 rounded-full"
+      className="pointer-events-none fixed top-0 left-0 z-0 hidden h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full md:block"
       style={{
         background:
-          "radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%)",
-        transition: "left 0.08s, top 0.08s",
+          "radial-gradient(circle, color-mix(in oklab, var(--primary) 12%, transparent) 0%, transparent 70%)",
       }}
       aria-hidden
     />

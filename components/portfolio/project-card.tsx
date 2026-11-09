@@ -1,128 +1,168 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import { ProjectPreview } from "@/components/portfolio/project-preview";
 import { RichText } from "@/lib/rich-text";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Lightbulb } from "lucide-react";
-import { useRef } from "react";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { GitHubIcon } from "@/components/portfolio/social-icons";
 
 export type Project = {
   number: string;
   role: string;
   title: string;
+  summary: string;
   challenge: string;
   contributions: readonly string[];
   stack: readonly string[];
+  accent: "ocean" | "violet" | "amber" | "forest";
+  featured: boolean;
+  liveUrl?: string;
+  sourceUrl?: string;
 };
 
 export function ProjectCard({
   project,
   index,
+  layout = "stack",
 }: {
   project: Project;
   index: number;
+  layout?: "featured" | "stack" | "compact";
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const springX = useSpring(mx, { stiffness: 150, damping: 20 });
-  const springY = useSpring(my, { stiffness: 150, damping: 20 });
-  const rotateX = useTransform(springY, [-0.5, 0.5], [5, -5]);
-  const rotateY = useTransform(springX, [-0.5, 0.5], [-5, 5]);
+  const reverse = layout === "featured" && index % 2 === 1;
 
-  function onPointerMove(e: React.PointerEvent) {
-    if (!ref.current) return;
-    const coarse =
-      typeof window !== "undefined" &&
-      window.matchMedia("(pointer: coarse)").matches;
-    if (coarse) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    mx.set(x);
-    my.set(y);
-  }
-
-  function onPointerLeave() {
-    mx.set(0);
-    my.set(0);
-  }
+  const isFeatured = layout === "featured";
+  const isCompact = layout === "compact";
 
   return (
     <motion.article
-      ref={ref}
-      className="relative cursor-default overflow-hidden rounded-(--radius-portfolio-lg) border border-border bg-card"
-      style={{ rotateX, rotateY, transformPerspective: 1000 }}
-      onPointerMove={onPointerMove}
-      onPointerLeave={onPointerLeave}
-      initial={{ opacity: 0, y: 32 }}
+      className={cn(
+        "group overflow-hidden rounded-[1.5rem] border border-border bg-card",
+        isFeatured && "lg:grid lg:grid-cols-2 lg:items-stretch",
+        reverse && "lg:[&>*:first-child]:order-2",
+      )}
+      initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px", amount: 0.15 }}
+      viewport={{ once: true, margin: "-60px", amount: 0.2 }}
       transition={{
-        duration: 0.55,
-        delay: index * 0.08,
+        duration: 0.6,
+        delay: index * 0.06,
         ease: [0.22, 1, 0.36, 1],
       }}
-      whileHover={{ y: -4 }}
     >
-      <div className="relative z-1 p-8">
-        <span className="font-mono text-5xl font-black leading-none text-gradient opacity-25">
-          {project.number}
-        </span>
+      <ProjectPreview
+        accent={project.accent}
+        number={project.number}
+        title={project.title}
+        fill={isFeatured}
+        className={cn(
+          "rounded-none",
+          isFeatured && "aspect-[16/10] min-h-[16rem] lg:aspect-auto lg:min-h-full",
+          isCompact && "aspect-[16/9]",
+          !isFeatured && !isCompact && "aspect-[16/10]",
+        )}
+      />
 
-        <Badge
-          variant="outline"
-          className="mb-3 mt-2 rounded-full border-[rgba(124,58,237,0.4)] bg-[rgba(124,58,237,0.08)] px-3 py-0.5 font-semibold text-(--portfolio-purple) text-xs uppercase tracking-wider"
+      <div
+        className={cn(
+          "flex min-w-0 flex-col justify-center p-6 md:p-8",
+          isCompact && "p-5 md:p-6",
+        )}
+      >
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[0.68rem] tracking-[0.18em] text-primary uppercase">
+            {project.number}
+          </span>
+          <span className="text-border">/</span>
+          <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+            {project.role}
+          </span>
+        </div>
+
+        <h3
+          className={cn(
+            "font-semibold tracking-tight text-foreground",
+            layout === "featured"
+              ? "text-2xl md:text-3xl"
+              : "text-xl md:text-2xl",
+          )}
         >
-          {project.role}
-        </Badge>
-
-        <h3 className="text-foreground mb-4 text-lg font-bold leading-snug md:text-xl">
           {project.title}
         </h3>
 
-        <div className="mb-4 rounded-r-lg border-(--portfolio-cyan) border-l-2 bg-[rgba(0,212,255,0.04)] py-3 pr-4 pl-4">
-          <span className="mb-2 flex items-center gap-2 font-bold text-(--portfolio-cyan) text-[0.78rem] uppercase tracking-widest">
-            <Lightbulb className="size-3.5" />
-            The Challenge
-          </span>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-[0.95rem]">
+          {project.summary}
+        </p>
 
-          <p className="text-muted-foreground text-sm leading-relaxed">
+        {layout !== "compact" ? (
+          <>
+            <p className="mt-5 text-xs font-semibold tracking-[0.14em] text-foreground uppercase">
+              Contribution
+            </p>
+            <ul className="mt-3 space-y-2">
+              {project.contributions.slice(0, layout === "featured" ? 4 : 3).map((item) => (
+                <li
+                  key={item.slice(0, 36)}
+                  className="relative pl-4 text-sm leading-relaxed text-ink-soft before:absolute before:left-0 before:top-[0.55rem] before:size-1 before:rounded-full before:bg-primary"
+                >
+                  <RichText text={item} />
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className="mt-4 text-sm leading-relaxed text-ink-soft">
+            <span className="font-medium text-foreground">Challenge: </span>
             {project.challenge}
           </p>
-        </div>
+        )}
 
-        <ul className="mb-5 flex flex-col gap-2">
-          {project.contributions.map((c) => (
-            <li
-              key={c.slice(0, 40)}
-              className="relative pl-5 text-sm leading-relaxed text-foreground/90 before:absolute before:left-0 before:text-(--portfolio-cyan) before:content-['→']"
-            >
-              <RichText text={c} />
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex flex-wrap gap-1.5">
-          {project.stack.map((t) => (
+        <div className="mt-6 flex flex-wrap gap-2">
+          {project.stack.map((tech) => (
             <span
-              key={t}
-              className="rounded-full border border-[rgba(0,212,255,0.18)] bg-[rgba(0,212,255,0.06)] px-2.5 py-1 font-mono text-(--portfolio-cyan) text-xs font-medium"
+              key={tech}
+              className="rounded-full border border-border bg-surface px-2.5 py-1 font-mono text-[0.68rem] text-muted-foreground"
             >
-              {t}
+              {tech}
             </span>
           ))}
         </div>
-      </div>
 
-      <div
-        className="pointer-events-none absolute right-0 bottom-0 h-45 w-45 rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(124,58,237,0.08), transparent 60%)",
-        }}
-        aria-hidden
-      />
+        {(project.liveUrl || project.sourceUrl) && (
+          <div className="mt-6 flex flex-wrap gap-3">
+            {project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-primary"
+              >
+                Live project
+                <ExternalLink className="size-3.5" />
+              </a>
+            ) : null}
+            {project.sourceUrl ? (
+              <a
+                href={project.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-primary"
+              >
+                Source
+                <GitHubIcon className="size-3.5" />
+              </a>
+            ) : null}
+          </div>
+        )}
+
+        {layout === "featured" ? (
+          <div className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors group-hover:text-primary">
+            Case study highlights
+            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </div>
+        ) : null}
+      </div>
     </motion.article>
   );
 }
