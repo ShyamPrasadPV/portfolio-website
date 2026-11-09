@@ -10,6 +10,23 @@ export const site = {
   github: "https://github.com/ShyamPrasadPV",
   location: "India",
   availability: "Open to full-time roles & select freelance",
+  /** Production site origin — override with NEXT_PUBLIC_SITE_URL */
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+    "http://localhost:3000",
+  locale: "en_US",
+  keywords: [
+    "Shyam Prasad",
+    "Full Stack Software Engineer",
+    "React Developer",
+    "Next.js Developer",
+    "TypeScript",
+    "Headless CMS",
+    "Payload CMS",
+    "Strapi",
+    "Frontend Engineer",
+    "Web Application Developer",
+  ],
 } as const;
 
 export const navLinks = [
